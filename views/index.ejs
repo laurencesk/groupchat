@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+         $(document). ready(function (){
+
+            var x;
+            var name=prompt("Your name:");
+            if (name!=null){
+                x="Hello " + name + "! How are you today?";
+                alert(x);
+            }
+
+            var socket  = io.connect();
+            $('#button').click(function (){
+                socket.emit( "button_clicked", {clicked:true});
+            });
+            socket.on( 'server_response', function (data){
+                // console.log( 'The server says: '  + data.response);
+                $('span').text(data.response)
+            });        
+
+
+
+    })
+    </script>
+
+
+</head>
+<body>
+    <div>
+
+
+        
+    </div>
+</body>
+</html>

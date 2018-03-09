@@ -9,14 +9,26 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type ="text/javascript">
-         $(document). ready(function (){
+         $(document).ready(function (){
 
-            var x;
-            var name=prompt("Your name:");
-            if (name!=null){
-                x="Hello " + name + "! How are you today?";
-                alert(x);
+            if(name == undefined || name == null){
+                // var x;
+                var name=prompt("Your name:");
             }
+            console.log(name)
+            // if (name!=null){
+            //     // x="Hello " + name + "! How are you today?";
+            //     // alert(x);
+            // }
+
+            var chat = document.getElementById("box").innerHTML
+            var message = document.getElementById('#message').value()
+            $('#send').click(function (e){
+                e.preventDefault()
+                console.log("<p>"+name+" : "+message+"</p>")
+                $('#boxt').append("<p>"+name+" : "+message+"</p>")
+
+            });
 
             var socket  = io.connect();
             $('#button').click(function (){
@@ -36,9 +48,17 @@
 </head>
 <body>
     <div>
-
-
+        <h2>Conversation Board</h2>
+        <div id="box" style="border: 1px solid black; width: 600px; height: auto; padding:10px ">
         
+        
+        </div>
+        <br>
+        <form>
+            <input type="text" name="" id="message" placeholder="enter your message here" style="border: 1px black solid; width: 300px;">
+            <input type="submit" name="send" id="send" value="Send">
+        </form>
+       
     </div>
 </body>
 </html>

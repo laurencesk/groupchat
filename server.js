@@ -70,7 +70,6 @@ io.sockets.on('connection', function (socket) {
     })
 
     socket.on( "message_sent", function (data){
-        console.log(data.content)
         io.emit('server_response', {response: data.content});
     });
 });     

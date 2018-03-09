@@ -13,10 +13,13 @@
             var socket  = io.connect();
 
             if(name == undefined || name == null){
+                while(!name)
                 var name=prompt("Your name:");
-                if (name!=null){
-                    x="Hello " + name + "! How are you today?";
-                    alert(x);
+                if (name){
+                    socket.emit("got_a_new_user", {name: name});
+                }
+                else{
+                    var name=prompt("Your name:");
                     socket.emit("got_a_new_user", {name: name});
                 }
             }
@@ -25,7 +28,11 @@
             $('#send').click(function (e){
                 e.preventDefault()
                 var message = $('#message').val()
-                socket.emit( "message_sent", {content: message});
+                content = {
+                    message: message,
+                    name: name
+                }
+                socket.emit( "message_sent", {content: content});
                 $('#message').val("")
             });
             
@@ -50,6 +57,11 @@
             }) 
 
 
+            socket.on('server_response', function (data){
+                $('#box').append("<p>"+data.response['name']+" : "+data.response['message']+"</p>")
+            });        
+
+
     })
     </script>
 
@@ -57,12 +69,10 @@
 </head>
 <body>
     <div id="header"></div>
-    <div id="user_list">
-
-    </div>
+    <div id="user_list"></div>
 
 
-    <div class="chat_room">
+    <div class="chat_room" style="padding: 10px;">
         <h2>Conversation Board</h2>
         <div id="box" style="border: 1px solid black; width: 600px; height: auto; padding:10px ">
         
@@ -70,7 +80,7 @@
         </div>
         <br>
         <form>
-            <input type="text" name="" id="message" placeholder="enter your message here" style="border: 1px black solid; width: 300px;">
+            <input type="text" name="" id="message" placeholder="enter your message here" style="border: 1px black solid; width: 600px;">
             <input type="submit" name="send" id="send" value="Send">
         </form>
        

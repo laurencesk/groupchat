@@ -20,16 +20,14 @@
             $('#send').click(function (e){
                 e.preventDefault()
                 var message = $('#message').val()
-                console.log(message)
                 socket.emit( "message_sent", {content: message});
                 $('#message').val("")
             });
             
             socket.on('server_response', function (data){
-                e.preventDefault()
-                $('#box').append("<p>"+data+"</p>")
+                console.log(data)
+                $('#box').append("<p>"+data.response+"</p>")
             });        
-
 
 
     })

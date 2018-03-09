@@ -46,12 +46,12 @@ var io = require('socket.io').listen(server);
 var count = 0
 
 io.sockets.on('connection', function (socket) {
-    console.log("Client/socket is connected!");
+    console.log("Client/123socket is connected!");
     console.log("Client/socket id is: ", socket.id);
     // all the server socket code goes in here
     socket.on( "message_sent", function (data){
         console.log(data.content)
-        socket.broadcast.emit( 'server_response', {data});
+        io.emit('server_response', {response: data.content});
     })
      
 })

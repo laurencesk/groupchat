@@ -49,19 +49,11 @@ io.sockets.on('connection', function (socket) {
     console.log("Client/socket is connected!");
     console.log("Client/socket id is: ", socket.id);
     // all the server socket code goes in here
-    socket.on( "button_clicked", function (data){
-        if(data.clicked){
-            count+=1
-        }
-        socket.emit( 'server_response', {response: count});
+    socket.on( "message_sent", function (data){
+        console.log(data.content)
+        socket.emit( 'server_response', {response: data.content});
+        socket.broadcast.emit( 'server_response', {response: count});
+
     })
-    socket.on( "reset", function (data){
-        if(data.clicked){
-            count=0
-        }
-        socket.emit( 'server_response', {response: count});
-    })
-
-
-
+     
 })

@@ -10,31 +10,21 @@
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type ="text/javascript">
          $(document).ready(function (){
+            var socket  = io.connect();
 
             if(name == undefined || name == null){
-                // var x;
                 var name=prompt("Your name:");
             }
-            console.log(name)
-            // if (name!=null){
-            //     // x="Hello " + name + "! How are you today?";
-            //     // alert(x);
-            // }
 
-
+            var chat = document.getElementById("box").innerHTML
             $('#send').click(function (e){
-                var chat = document.getElementById("box").innerHTML
-                var message = $('#message').val()
                 e.preventDefault()
-                $('#box').append("<p>"+name+" : "+message+"</p>")
-                $('#message').val() = ""
-
+                var message = $('#message').val()
+                console.log(message)
+                socket.emit( "message_sent", {content: message});
+                $('#message').val("")
             });
-
-            var socket  = io.connect();
-            $('#button').click(function (){
-                socket.emit( "button_clicked", {clicked:true});
-            });
+            
             socket.on( 'server_response', function (data){
                 // console.log( 'The server says: '  + data.response);
                 $('span').text(data.response)

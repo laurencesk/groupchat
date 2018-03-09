@@ -21,12 +21,13 @@
             //     // alert(x);
             // }
 
-            var chat = document.getElementById("box").innerHTML
-            var message = document.getElementById('#message').value()
+
             $('#send').click(function (e){
+                var chat = document.getElementById("box").innerHTML
+                var message = $('#message').val()
                 e.preventDefault()
-                console.log("<p>"+name+" : "+message+"</p>")
-                $('#boxt').append("<p>"+name+" : "+message+"</p>")
+                $('#box').append("<p>"+name+" : "+message+"</p>")
+                $('#message').val() = ""
 
             });
 

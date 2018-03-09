@@ -25,7 +25,6 @@
             $('#send').click(function (e){
                 e.preventDefault()
                 var message = $('#message').val()
-                console.log(message)
                 socket.emit( "message_sent", {content: message});
                 $('#message').val("")
             });
@@ -34,7 +33,10 @@
                 console.log( 'The server says: '  + data.name);
                 $('#user_list').append( "<div class='user_info'><h3>" + data.name + "</h3></div>" );
             });   
-
+            socket.on('server_response', function (data){
+                console.log(data)
+                $('#box').append("<p>"+data.response+"</p>")
+            });        
 
 
     })

@@ -49,9 +49,9 @@ io.sockets.on('connection', function (socket) {
     console.log("Client/socket is connected!");
     console.log("Client/socket id is: ", socket.id);
     // all the server socket code goes in here
-    socket.on( "message_sent", function (data){
-        console.log(data.content)
-        socket.broadcast.emit( 'server_response', {data});
+    socket.on( "got_a_new_user", function (data){
+        console.log("new user joined");
+        socket.broadcast.emit( 'new_user', {name: data.name});
     })
      
 })

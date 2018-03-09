@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/style.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type ="text/javascript">
@@ -14,6 +14,11 @@
 
             if(name == undefined || name == null){
                 var name=prompt("Your name:");
+                if (name!=null){
+                    x="Hello " + name + "! How are you today?";
+                    alert(x);
+                    socket.emit("got_a_new_user", {name: name});
+                }
             }
 
             var chat = document.getElementById("box").innerHTML
@@ -24,6 +29,10 @@
                 $('#message').val("")
             });
             
+            socket.on( 'new_user', function (data){
+                console.log( 'The server says: '  + data.name);
+                $('#user_list').append( "<div class='user_info'><h3>" + data.name + "</h3></div>" );
+            });   
             socket.on('server_response', function (data){
                 $('#box').append("<p>"+data.response+"</p>")
             });        
@@ -35,7 +44,12 @@
 
 </head>
 <body>
-    <div>
+    <div id="user_list">
+
+    </div>
+
+
+    <div class="chat_room">
         <h2>Conversation Board</h2>
         <div id="box" style="border: 1px solid black; width: 600px; height: auto; padding:10px ">
         

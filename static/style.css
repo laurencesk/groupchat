@@ -1,0 +1,25 @@
+#user_list{
+    width: 15%;
+    height: 100%;
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+}
+
+.user_info{
+    height: 40px;
+    border: 1px solid black;
+}
+
+.chat_room{
+    width: 75%;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+#box{
+    padding: 15px;
+}

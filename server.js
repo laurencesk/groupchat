@@ -51,9 +51,7 @@ io.sockets.on('connection', function (socket) {
     // all the server socket code goes in here
     socket.on( "message_sent", function (data){
         console.log(data.content)
-        socket.emit( 'server_response', {response: data.content});
-        socket.broadcast.emit( 'server_response', {response: count});
-
+        socket.broadcast.emit( 'server_response', {data});
     })
      
 })

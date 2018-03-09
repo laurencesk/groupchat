@@ -31,12 +31,23 @@
             
             socket.on( 'new_user', function (data){
                 console.log( 'The server says: '  + data.name);
-                $('#user_list').append( "<div class='user_info'><h3>" + data.name + "</h3></div>" );
-            });   
+                $('#user_list').append( "<div class='user_info' id='" + data.id + "'><h3>" + data.name + "</h3></div>" );
+            });  
+            
+            socket.on( 'user_id', function (data){
+                $('#header').append( "<h2>" + "Wecome, " + data.name + "</h2><h4>" + "Socket ID: " + data.id + "</h4>" );
+            });  
+            
+
             socket.on('server_response', function (data){
-                console.log(data)
+                console.log(data);
                 $('#box').append("<p>"+data.response+"</p>")
-            });        
+            });       
+
+            socket.on('user_disconnected', function (data){
+                console.log("A user disconnected");
+                $("#"+data.id).remove();
+            }) 
 
 
     })
@@ -45,6 +56,7 @@
 
 </head>
 <body>
+    <div id="header"></div>
     <div id="user_list">
 
     </div>

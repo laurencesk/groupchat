@@ -51,10 +51,26 @@ io.sockets.on('connection', function (socket) {
     // all the server socket code goes in here
     socket.on( "got_a_new_user", function (data){
         console.log("new user joined");
-        socket.broadcast.emit( 'new_user', {name: data.name});
+        context = {
+            name: data.name,
+            id: socket.id,
+        }
+        socket.broadcast.emit( 'new_user', context);
+    });
+    socket.on( "got_a_new_user", function (data){
+        context = {
+            name: data.name,
+            id: socket.id,
+        }
+        socket.emit( 'user_id', context);
+    });
+    socket.on('disconnect', function(){
+        console.log("A user disconnected");
+        io.emit('user_disconnected', {id: socket.id})
+    })
+
     socket.on( "message_sent", function (data){
         console.log(data.content)
         io.emit('server_response', {response: data.content});
-    })
-     
-})
+    });
+});     

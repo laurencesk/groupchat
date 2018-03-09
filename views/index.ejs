@@ -25,7 +25,6 @@
             });
             
             socket.on('server_response', function (data){
-                console.log(data)
                 $('#box').append("<p>"+data.response+"</p>")
             });        
 

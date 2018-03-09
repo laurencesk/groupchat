@@ -50,7 +50,6 @@ io.sockets.on('connection', function (socket) {
     console.log("Client/socket id is: ", socket.id);
     // all the server socket code goes in here
     socket.on( "message_sent", function (data){
-        console.log(data.content)
         io.emit('server_response', {response: data.content});
     })
      
